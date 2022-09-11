@@ -116,7 +116,7 @@ class PreprocessingLOB():
               self.data_raw = data
               self.data_clean = clean_mbo(self.data_raw)
 
-    def run_prepare_data(self, K, labeling_type=2, alpha_type=1, show_print=True, alpha=0.00008):
+    def run_prepare_data(self, K, labeling_type=2, alpha_type=2, show_print=True, alpha=0.00008):
         self.data = self.data_clean.copy()
         ind_labels, est_dsc = self.labeling_deep_lob(K, labeling_type=labeling_type, alpha_type=alpha_type)
         if self.lob:
@@ -142,7 +142,7 @@ class PreprocessingLOB():
         print(self.dataX.shape, self.dataY.shape)
         print("-----------------------------------------------------------------------------------------------------")
 
-    def labeling_deep_lob(self, K, column="Midprice", n_bins=3, labeling_type=2, alpha_type=1, alpha=0.00008):
+    def labeling_deep_lob(self, K, column="Midprice", n_bins=3, labeling_type=2, alpha_type=2, alpha=0.00008):
         self.data["MeanNegativeMid"] = self.data[column].rolling(window=K).mean()
         self.data["MeanPositiveMid"] = self.data["MeanNegativeMid"].shift(-(K-1))
         if labeling_type == 1:
